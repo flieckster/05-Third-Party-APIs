@@ -1,119 +1,110 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 
-let DateTime = luxon.DateTime;
-// let DateTime = JSON.stringify(luxon.DateTime.DATETIME_FULL);
+    let DateTime = luxon.DateTime;
 
-//get hour only
+    let hour = DateTime.local().hour;
+    
+    // let DateTime = JSON.stringify(luxon.DateTime.DATETIME_FULL);
+    console.log(DateTime);
 
 
+    var workingHours = [
 
+        {
+            hour: "9:00 am",
+            mhour: "9"
+        },
 
+        {
+            hour: "10:00 am",
+            mhour: "10"
+        },
 
-$(".container").addClass("time-block");
-//create row
-var row = $("<article>").addClass("row");
-$(".container").append(row);
-//create time section
-var timeSec = $("<section>").addClass("hour col-1");
-// timeSec.text(hours.hour);
-row.append(timeSec);
-// created and appended textarea
-var textSec = $("<textarea>").addClass("textarea col-10 description");
-row.append(textSec);
-// created and appended buttons
-var btnSec = $("<button>").addClass("saveBtn col-1 fa fa-lock");
-row.append(btnSec);
+        {
+            hour: "11:00 am",
+            mhour: "11"
+        },
 
-let hour = DateTime.local().hour;
-var h;
-switch (hour) {
-   
-    case 0:
-    h = "12:00 PM";
-    break;
-    case 1:
-    h = "1:00 AM";
-    break;
-    case 2:
-    h = "2:00 AM";
-    break;
-    case 3:
-    h = "3:00 AM";
-    break;
-    case 4:
-    h = "4:00 AM";
-    break;
-    case 5:
-    h = "5:00 AM";
-    break;
-    case 6:
-    h = "6:00 AM";
-    break;
-    case 6:
-    h = "6:00 AM";
-    break;
-    case 7:
-    h = "7:00 AM";
-    break;
-    case 8:
-    h = "8:00 AM";
-    break;
-    case 9:
-    h = "9:00 AM";
-    break;
-    case 9:
-    h = "9:00 AM";
-    break;
-    case 9:
-    h = "9:00 AM";
-    break;
-    case 10:
-    h = "10:00 AM";
-    break;
-    case 11:
-    h = "11:00 AM";
-    break;
-    case 12:
-    h = "12:00 AM";
-    break;
-    case 13:
-    h = "1:00 PM";
-    break;
-    case 14:
-    h = "2:00 PM";
-    break;
-    case 15:
-    h = "3:00 PM";
-    $(textSec).addClass("current");
-    break;
-    case 16:
-    h = "4:00 PM";
-    break;
+        {
+            hour: "12:00 pm",
+            mhour: "12"
+        },
 
-};
+        {
+            hour: "1:00 pm",
+            mhour: "13"
+        },
 
-console.log("the hour is "+ h);
+        {
+            hour: "2:00 pm",
+            mhour: "14"
+        },
+
+        {
+            hour: "3:00 pm",
+            mhour: "15"
+        },
+
+        {
+            hour: "4:00 pm",
+            mhour: "16"
+        },
+
+        {
+            hour: "5:00 pm",
+            mhour: "17"
+        },
+
+        {
+            hour: "6:00 pm",
+            mhour: "18"
+        }
+
+    ];
 
 
 
+    workingHours.forEach(function (workingHours) {
+        // console.log(workingHours);
+
+        $(".container").addClass("time-block");
+        //create row
+        var row = $("<article>").addClass("row");
+        $(".container").append(row);
+        //create time section
+        var timeSec = $("<section>").addClass("hour col-1");
+        // timeSec.text(hours.hour);
+        row.append(timeSec);
+        // created and appended textarea
+        var textSec = $("<textarea>").addClass("textarea col-10 description");
+        row.append(textSec);
+        // created and appended buttons
+        var btnSec = $("<button>").addClass("saveBtn col-1 fa fa-lock");
+        row.append(btnSec);
+
+        // genarate all the hourly slots based on Array and update class to show color also insert time
+
+        if (hour < workingHours.mhour) {
+            $(textSec).addClass("future");
+            $(timeSec).text(workingHours.hour);
+        }
+
+        if (hour > workingHours.mhour) {
+            $(textSec).addClass("past");
+            $(timeSec).text(workingHours.hour);
+        }
+
+        else if (hour = workingHours.mhour) {
+            $(textSec).addClass("present");
+            $(timeSec).text(workingHours.hour);
+        }
+
+    });
 
 
-// $(textSec).addClass("past");
-// $(textSec).addClass("future");
-// $(textSec).addClass("current");
 
-
-
-// let DateTime = luxon.DateTime;
-
-// let today = DateTime.local();
-// console.log(today);
 
 
 
 })
-
-
-
-
