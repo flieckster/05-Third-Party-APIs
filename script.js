@@ -1,12 +1,14 @@
 $(document).ready(function () {
 
 
-    let DateTime = luxon.DateTime;
+    let DateTime  = luxon.DateTime;
+    let localDatetime = DateTime.local().toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
 
     let hour = DateTime.local().hour;
-    
-    // let DateTime = JSON.stringify(luxon.DateTime.DATETIME_FULL);
-    console.log(DateTime);
+    //display current date
+    $("#currentDay").text(localDatetime);
+  
+
 
 
     var workingHours = [
@@ -62,16 +64,20 @@ $(document).ready(function () {
         }
 
     ];
-
-
+//test data for LS
+    localStorage.setItem("time", hour);
+    // localStorage.setItem("text", 'some text again');
+    // console.log(localStorage);
 
     workingHours.forEach(function (workingHours) {
         // console.log(workingHours);
 
         $(".container").addClass("time-block");
         //create row
+        
         var row = $("<article>").addClass("row");
         $(".container").append(row);
+        
         //create time section
         var timeSec = $("<section>").addClass("hour col-1");
         // timeSec.text(hours.hour);
@@ -79,10 +85,25 @@ $(document).ready(function () {
         // created and appended textarea
         var textSec = $("<textarea>").addClass("textarea col-10 description");
         row.append(textSec);
+        textSec.attr("data-text", workingHours.mhour);
         // created and appended buttons
+
         var btnSec = $("<button>").addClass("saveBtn col-1 fa fa-lock");
         row.append(btnSec);
+        //assign buttons data-time element to give buttons meaning
+        btnSec.attr("data-time", workingHours.mhour);
+        //save text based on clicking lock button.
+        $("<button>").on("click", function() {
+        //    var timeSolts = $("<button>");
+           const textInput = $("<textarea>").value;
+           alert(textInput);
+        //    localStorage.setItem('time', input.value());
+            console.log(textInput);
+          
+           
+        });
 
+        
         // genarate all the hourly slots based on Array and update class to show color also insert time
 
         if (hour < workingHours.mhour) {
@@ -99,6 +120,14 @@ $(document).ready(function () {
             $(textSec).addClass("present");
             $(timeSec).text(workingHours.hour);
         }
+
+        // function display () {
+            var display = localStorage.getItem("time");
+            console.log(display);
+        $("data-text").text(display);
+
+        // }
+        // display();
 
     });
 

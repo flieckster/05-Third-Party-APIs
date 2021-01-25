@@ -1,7 +1,8 @@
 body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
+  background-color: #ecf0f1;
 }
 
 textarea{
@@ -18,7 +19,7 @@ textarea{
   background-color: transparent;
   color: black;
   border-radius: 0;
-  border-bottom: 10px solid black;
+  border-bottom: 10px solid rgb(209, 209, 209);
 }
 
 .description{
@@ -37,23 +38,24 @@ textarea{
 }
 
 .hour {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   color: #000000;
+  font-size: 14px;
   border-top: 1px dashed #000000;
 }
 
 .past {
-  background-color: #d3d3d3;
+  background-color: #95a5a6;
   color: white;
 }
 
 .present {
-  background-color: #ff6961;
+  background-color: #c0392b;
   color: white;
 }
 
 .future {
-  background-color: #2ecc71;
+  background-color: #16a085;
   color: white;
 }
 
@@ -61,11 +63,13 @@ textarea{
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-color: #06AED5;
+  background-color: #3498db;
   color: white;
 }
 
 .saveBtn i:hover {
   font-size: 20px;
   transition: all .3s ease-in-out;
+  /* remove gold later */
+  background-color: gold;
 }
