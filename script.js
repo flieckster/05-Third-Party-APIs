@@ -1,139 +1,156 @@
 $(document).ready(function () {
+    //starts after page is loaded
+    display();
+    console.log(display);
 
 
-    let DateTime  = luxon.DateTime;
-    let localDatetime = DateTime.local().toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY);
-
+    let DateTime = luxon.DateTime;
     let hour = DateTime.local().hour;
-    //display current date
-    $("#currentDay").text(localDatetime);
-  
+
+
+    //sets the time
+    function tickingTime() {
+        //display current date with time DATETIME_FULL_WITH_SECONDS
+        let localDatetime = DateTime.local().toLocaleString(DateTime.DATETIME_FULL_WITH_SECONDS);
+        $("#currentDay").text(localDatetime);
+
+    };
 
 
 
+    // keeps the clock ticking
+    setInterval(function () {
+        tickingTime();
+    }, 1000);
+
+
+    //arry of times to make the  jquery genarated time blocks
     var workingHours = [
-
         {
-            hour: "9:00 am",
-            mhour: "9"
+            hourid: "9",
+            hourName: "9 am"
         },
-
         {
-            hour: "10:00 am",
-            mhour: "10"
+            hourid: "10",
+            hourName: "10 am"
         },
-
         {
-            hour: "11:00 am",
-            mhour: "11"
+            hourid: "11",
+            hourName: "11 am"
         },
-
         {
-            hour: "12:00 pm",
-            mhour: "12"
+            hourid: "12",
+            hourName: "12 am"
         },
-
         {
-            hour: "1:00 pm",
-            mhour: "13"
+            hourid: "13",
+            hourName: "1 pm"
         },
-
         {
-            hour: "2:00 pm",
-            mhour: "14"
+            hourid: "14",
+            hourName: "2 pm"
         },
-
         {
-            hour: "3:00 pm",
-            mhour: "15"
+            hourid: "15",
+            hourName: "3 pm"
         },
-
         {
-            hour: "4:00 pm",
-            mhour: "16"
+            hourid: "16",
+            hourName: "4 pm"
         },
-
         {
-            hour: "5:00 pm",
-            mhour: "17"
+            hourid: "17",
+            hourName: "5 pm"
         },
-
         {
-            hour: "6:00 pm",
-            mhour: "18"
+            hourid: "18",
+            hourName: "6 pm"
         }
-
     ];
-//test data for LS
-    localStorage.setItem("time", hour);
-    // localStorage.setItem("text", 'some text again');
-    // console.log(localStorage);
+
+
 
     workingHours.forEach(function (workingHours) {
-        // console.log(workingHours);
 
         $(".container").addClass("time-block");
         //create row
-        
         var row = $("<article>").addClass("row");
         $(".container").append(row);
-        
         //create time section
         var timeSec = $("<section>").addClass("hour col-1");
-        // timeSec.text(hours.hour);
+        timeSec.text(workingHours.hourName);
         row.append(timeSec);
         // created and appended textarea
         var textSec = $("<textarea>").addClass("textarea col-10 description");
         row.append(textSec);
-        textSec.attr("data-text", workingHours.mhour);
+        textSec.attr("id", workingHours.hourid);
         // created and appended buttons
-
         var btnSec = $("<button>").addClass("saveBtn col-1 fa fa-lock");
         row.append(btnSec);
-        //assign buttons data-time element to give buttons meaning
-        btnSec.attr("data-time", workingHours.mhour);
-        //save text based on clicking lock button.
-        $("<button>").on("click", function() {
-        //    var timeSolts = $("<button>");
-           const textInput = $("<textarea>").value;
-           alert(textInput);
-        //    localStorage.setItem('time', input.value());
-            console.log(textInput);
-          
-           
-        });
+    });
 
-        
-        // genarate all the hourly slots based on Array and update class to show color also insert time
+    // display items from local storage
+    function display() {
 
-        if (hour < workingHours.mhour) {
-            $(textSec).addClass("future");
-            $(timeSec).text(workingHours.hour);
+        var nine = localStorage.getItem("9 am");
+        // console.log(nine);
+        $("#9").val(nine);
+
+        var ten = localStorage.getItem("10 am");
+        // console.log(ten);
+        $("#10").val(ten);
+
+        var eleven = localStorage.getItem("11 am");
+        $("#11").val(eleven);
+
+        var twelve = localStorage.getItem("12 pm");
+        $("#12").val(twelve);
+
+        var one = localStorage.getItem("1 pm");
+        $("#13").val(one);
+
+        var two = localStorage.getItem("2pm");
+        $("#14").val(two);
+
+        var three = localStorage.getItem("3 pm");
+        $("#15").val(three);
+
+        var four = localStorage.getItem("4 pm");
+        $("#16").val(four);
+
+        var five = localStorage.getItem("5 pm");
+        $("#17").val(five);
+
+        var six = localStorage.getItem("6 pm");
+        $("#18").val(six);
+    };
+
+
+
+
+
+    //updateding the time blocks with the css color coding
+    $(".description").each(function () {
+        var blockHour = parseInt($(this).attr("id"));
+        if (hour < blockHour) {
+            $(this).addClass("future");
+        } else if (blockHour == hour) {
+            $(this).addClass("present");
+        } else {
+            $(this).addClass("past")
         }
 
-        if (hour > workingHours.mhour) {
-            $(textSec).addClass("past");
-            $(timeSec).text(workingHours.hour);
-        }
+    });
 
-        else if (hour = workingHours.mhour) {
-            $(textSec).addClass("present");
-            $(timeSec).text(workingHours.hour);
-        }
-
-        // function display () {
-            var display = localStorage.getItem("time");
-            console.log(display);
-        $("data-text").text(display);
-
-        // }
-        // display();
+    // set button to save text from text input text
+    $(".saveBtn").on("click", function () {
+        var description = $(this).siblings(".description").val();
+        var hour = $(this).siblings(".hour").text();
+        localStorage.setItem(hour, description);
 
     });
 
 
 
-
-
-
-})
+    //don't touch this
+});
