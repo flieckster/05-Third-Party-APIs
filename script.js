@@ -1,7 +1,7 @@
 $(document).ready(function () {
     //starts after page is loaded
     display();
-    console.log(display);
+  
 
 
     let DateTime = luxon.DateTime;
@@ -40,7 +40,7 @@ $(document).ready(function () {
         },
         {
             hourid: "12",
-            hourName: "12 am"
+            hourName: "12 pm"
         },
         {
             hourid: "13",
@@ -126,7 +126,7 @@ $(document).ready(function () {
     };
 
 
-
+    display();
 
 
     //updateding the time blocks with the css color coding
